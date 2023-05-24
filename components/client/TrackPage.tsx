@@ -11,7 +11,7 @@ export default function TrackPage() {
   useEffect(() => {
     console.log(pathname);
     page();
-  }, [pathname]);
+  }, [page, pathname]);
 
   return null;
 }

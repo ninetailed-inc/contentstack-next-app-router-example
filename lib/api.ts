@@ -130,6 +130,7 @@ export const getAllLandingPages = async () => {
     referenceFieldPath: undefined,
     jsonRtePath: undefined,
   });
+  // @ts-ignore
   return response[0];
 };
 
@@ -204,8 +205,9 @@ export const getAllExperiments = async () => {
     ],
   });
 
+  // @ts-ignore
   const mappedExperiments = (response[0] || [])
-    .map((experiment) => {
+    .map((experiment: any) => {
       return {
         name: experiment.nt_name,
         type: experiment.nt_type,
@@ -214,7 +216,7 @@ export const getAllExperiments = async () => {
           id: experiment.nt_audience[0].nt_audience_id,
         },
         id: experiment.uid,
-        variants: experiment.nt_variants?.map((variant) => {
+        variants: experiment.nt_variants?.map((variant: any) => {
           return {
             id: variant.uid,
             ...variant,
@@ -225,6 +227,7 @@ export const getAllExperiments = async () => {
     .filter(ExperienceMapper.isExperimentEntry)
     .map(ExperienceMapper.mapExperiment)
     // FIXME: Description undefined bug
+    // @ts-ignore
     .map(({ description, ...experimentAttrs }) => {
       return experimentAttrs;
     });
